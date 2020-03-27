@@ -1,0 +1,22 @@
+{
+  "name": "ts-next",
+  "version": "1.0.0",
+  "description": "Typescript, NextJS",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "jiman.park@2020",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^9.3.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.31",
+    "@types/react": "^16.9.26"
+  }
+}
