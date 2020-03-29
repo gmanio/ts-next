@@ -1,10 +1,37 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
-import { NextPageContext } from 'next'
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import { NextPageContext } from 'next';
+import { ServerStyleSheet } from 'styled-components';
+import { GlobalStyle } from '../styles/global';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: App => props => sheet.collectStyles(
+            <>
+              <GlobalStyle />
+              <App {...props} />
+            </>
+          )
+        })
+
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      }
+    } finally {
+      sheet.seal();
+    };
   }
 
   render() {
@@ -28,7 +55,8 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#ffffff"></meta>
           <meta name="msapplication-TileImage" content="./favicon/ms-icon-144x144.png"></meta>
           <meta name="theme-color" content="#ffffff"></meta>
-          <link rel="stylesheet" type="text/css" ref="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"></link>
+          <link rel="stylesheet" type="text/css" href="./css/reset.min.css"></link>
+          <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
         </Head>
         <body>
           <Main />
