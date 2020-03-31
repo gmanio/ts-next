@@ -16,6 +16,7 @@
   "author": "jiman.park@2020",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.9.8",
     "babel-plugin-styled-components": "^1.10.7",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.3.2",
