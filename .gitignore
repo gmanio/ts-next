@@ -1,7 +1,10 @@
+#IDE
+.idea
+
 # npm
 node_modules
 package-lock.json
 
 # NextJS
 .next
-out
+out.idea/
