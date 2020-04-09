@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
-import { NextPageContext } from 'next';
 import { ServerStyleSheet } from 'styled-components';
 import { GlobalStyle } from '../styles/global';
 
@@ -57,6 +56,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#ffffff"></meta>
           <link rel="stylesheet" type="text/css" href="./css/reset.min.css"></link>
           <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
+          <script src="https://apis.google.com/js/platform.js" async defer></script>
         </Head>
         <body>
           <Main />

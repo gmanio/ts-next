@@ -7,4 +7,5 @@ package-lock.json
 
 # NextJS
 .next
-out.idea/
+out
+.idea/

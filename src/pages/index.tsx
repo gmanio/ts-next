@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Dialog, withStyles, Fade, Backdrop, DialogTitle, DialogContent, Typography, DialogActions, Button } from '@material-ui/core';
+import GoogleAuth from '../utils/GoogleAuth';
 
 const WrapperIndexPage = styled.div`
   min-height: 100%;
@@ -20,6 +21,12 @@ const CustomDialog = withStyles({
 const Index = () => {
   const [open, setOpen] = useState(false);
 
+  React.useEffect(() => {
+    setInterval(() => {
+      console.log('isSigned', GoogleAuth.isSignedIn())
+    }, 2000);
+  }, []);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -28,9 +35,15 @@ const Index = () => {
     setOpen(false);
   };
 
+  const getProfile = async () => {
+    const user = await GoogleAuth.getUser();
+    console.log(user);
+  };
+
   return (
     <>
       <WrapperIndexPage onClick={handleOpen}>Thinking...</WrapperIndexPage>
+      <button onClick={getProfile}>login</button>
       <CustomDialog
         open={open}
         onClose={handleClose}
