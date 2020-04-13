@@ -4,12 +4,21 @@ import GoogleAuth from "../utils/GoogleAuth";
 
 const CLIENT_ID = "328243791628-e4ufpd21joih7p8bu2gch8u07d277qjq.apps.googleusercontent.com";
 
+export interface UserProp {
+  user: gapi.auth2.GoogleUser | null;
+  signOut: () => void;
+  signIn: () => void;
+  isLogin: () => boolean;
+}
+
 const withUser = (WrappedComponent: FC) => (props: any) => {
   const [user, setUser] = useState<gapi.auth2.GoogleUser | null>(null);
+
   const callback = () => {
     const user = GoogleAuth.currentUser;
     setUser(user);
   };
+
   useEffect(() => {
     // // Using an IIFE
     (async () => {
@@ -17,22 +26,16 @@ const withUser = (WrappedComponent: FC) => (props: any) => {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   if (GoogleAuth.authInstance) {
-  //     console.log(GoogleAuth.authInstance);
+  const signIn = async () => setUser(await GoogleAuth.authInstance!.signIn());
 
-  //     debugger;
-  //     setUser(GoogleAuth.currentUser);
-  //   }
-  // }, [GoogleAuth.authInstance]);
+  const signOut = async () => {
+    await GoogleAuth.signOut();
+    setUser(null);
+  };
+  const isLogin = (): boolean => !!GoogleAuth.authInstance?.isSignedIn.get();
+  const userProp: UserProp = { user: user, signOut: signOut, signIn: signIn, isLogin: isLogin };
 
-  // const signOut = async () => {
-  //   await GoogleAuth.signOut();
-  // }
-
-  // const getUser = async () => await GoogleAuth.getUser();
-
-  return <WrappedComponent {...props} {...{ user: GoogleAuth.currentUser }} />
+  return <WrappedComponent {...props} {...userProp} />
 };
 
 export default withUser;

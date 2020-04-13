@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Dialog, withStyles, Fade, Backdrop, DialogTitle, DialogContent, Typography, DialogActions, Button } from '@material-ui/core';
-import withUser from '../hocs/withUser';
+import withUser, { UserProp } from '../hocs/withUser';
 
 const WrapperIndexPage = styled.div`
   min-height: 100%;
@@ -18,7 +18,7 @@ const CustomDialog = withStyles({
   }
 })(Dialog);
 
-const Index = (props: any) => {
+const Index: React.FC<any> = (props:UserProp) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -30,6 +30,12 @@ const Index = (props: any) => {
     setOpen(false);
   };
 
+  const handleLogin = async () => {
+    if (!props.isLogin()) {
+      await props.signIn();
+    }
+  };
+
   React.useEffect(() => {
     console.log('props change ');
     console.log(props.user);
@@ -38,6 +44,7 @@ const Index = (props: any) => {
   return (
     <>
       <WrapperIndexPage onClick={handleOpen}>Thinking...{props.user && props.user.getBasicProfile().getName()}</WrapperIndexPage>
+      <button onClick={handleLogin}>login</button>
       <CustomDialog
         open={open}
         onClose={handleClose}

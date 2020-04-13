@@ -21,7 +21,10 @@ class GoogleAuth {
     }, 100);
   };
 
-  signOut = () => this.authInstance!.signOut();
+  signOut = async () => {
+    this.authInstance!.signOut();
+    this.currentUser = null;
+  }
 }
 
 export default GoogleAuth.getInstance();
