@@ -27,6 +27,7 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
+    "@types/gapi": "0.0.39",
     "@types/gapi.auth2": "0.0.51",
     "@types/next": "^9.0.0",
     "@types/node": "^12.12.31",

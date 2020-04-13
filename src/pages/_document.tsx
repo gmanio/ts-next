@@ -56,7 +56,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#ffffff"></meta>
           <link rel="stylesheet" type="text/css" href="./css/reset.min.css"></link>
           <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet"></link>
-          <script src="https://apis.google.com/js/platform.js" async defer></script>
+          <script src="https://apis.google.com/js/platform.js?onload=platform_callback" async defer></script>
         </Head>
         <body>
           <Main />

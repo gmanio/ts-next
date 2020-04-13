@@ -26,17 +26,18 @@ const Index = (props: any) => {
   };
 
   const handleClose = () => {
+    props.signOut && props.signOut();
     setOpen(false);
   };
 
-  React.useEffect(() => { 
-    console.log(props);
-    debugger;
+  React.useEffect(() => {
+    console.log('props change ');
+    console.log(props.user);
   }, [props]);
 
   return (
     <>
-      <WrapperIndexPage onClick={handleOpen}>Thinking...</WrapperIndexPage>
+      <WrapperIndexPage onClick={handleOpen}>Thinking...{props.user && props.user.getBasicProfile().getName()}</WrapperIndexPage>
       <CustomDialog
         open={open}
         onClose={handleClose}
