@@ -12,7 +12,7 @@ export interface UserProp {
 }
 
 const withUser = (WrappedComponent: FC) => (props: any) => {
-  const [user, setUser] = useState<gapi.auth2.GoogleUser | null>(null);
+  const [user, setUser] = useState<gapi.auth2.GoogleUser | null>(GoogleAuth.currentUser ? GoogleAuth.currentUser : null);
 
   const callback = () => {
     const user = GoogleAuth.currentUser;
@@ -22,7 +22,9 @@ const withUser = (WrappedComponent: FC) => (props: any) => {
   useEffect(() => {
     // // Using an IIFE
     (async () => {
-      await GoogleAuth.initialize(callback);
+      if (!GoogleAuth.authInstance) {
+        await GoogleAuth.initialize(callback);
+      }
     })();
   }, []);
 

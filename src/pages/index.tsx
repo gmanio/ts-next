@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Dialog, withStyles, Fade, Backdrop, DialogTitle, DialogContent, Typography, DialogActions, Button } from '@material-ui/core';
 import withUser, { UserProp } from '../hocs/withUser';
+import { useRouter } from 'next/router';
 
 const WrapperIndexPage = styled.div`
   min-height: 100%;
@@ -18,8 +19,9 @@ const CustomDialog = withStyles({
   }
 })(Dialog);
 
-const Index: React.FC<any> = (props:UserProp) => {
+const Index: React.FC<any> = (props: UserProp) => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const handleOpen = () => {
     setOpen(true);
@@ -31,20 +33,27 @@ const Index: React.FC<any> = (props:UserProp) => {
   };
 
   const handleLogin = async () => {
-    if (!props.isLogin()) {
-      await props.signIn();
-    }
+
   };
 
   React.useEffect(() => {
-    console.log('props change ');
     console.log(props.user);
+    debugger;
+  }, []);
+
+  React.useEffect(() => {
+    if (!props.isLogin()) {
+      console.log(props.user?.getBasicProfile());
+
+      debugger;
+      const pathName = router.pathname;
+      router.replace(`/login?returnUrl=${pathName}`);
+    }
   }, [props]);
 
   return (
     <>
       <WrapperIndexPage onClick={handleOpen}>Thinking...{props.user && props.user.getBasicProfile().getName()}</WrapperIndexPage>
-      <button onClick={handleLogin}>login</button>
       <CustomDialog
         open={open}
         onClose={handleClose}
