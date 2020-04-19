@@ -1,24 +1,26 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import withUser, { UserProp } from '../hocs/withUser';
 
 type Props = { returnUrl: string } & UserProp;
 
-const LoginPage: React.FC<any> = (props: Props) => {
+const LoginPage: FC<any> = (props: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (props.user && props.isLogin()) {
-      const returnUrl = router.query.returnUrl.toString();
-      console.log(returnUrl);
-      debugger;
-      router.replace(returnUrl);
-    }
+    // if (props.user && props.isLogin()) {
+    //   const returnUrl = router.query.returnUrl.toString();
+    //   console.log(returnUrl);
+    //   debugger;
+    //   router.replace(returnUrl);
+    // }
+    console.log(props.user);
+    console.log('login:: props changed');
   }, [props]);
 
   return (
     <>
-      test
+      loginPage
     </>
   );
 };

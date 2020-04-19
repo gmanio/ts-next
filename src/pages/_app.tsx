@@ -1,3 +1,4 @@
+import * as React from 'react';
 import App, { AppContext } from 'next/app';
 
 class MyApp extends App {

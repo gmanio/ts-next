@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Dialog, withStyles, Fade, Backdrop, DialogTitle, DialogContent, Typography, DialogActions, Button } from '@material-ui/core';
 import withUser, { UserProp } from '../hocs/withUser';
@@ -19,7 +18,7 @@ const CustomDialog = withStyles({
   }
 })(Dialog);
 
-const Index: React.FC<any> = (props: UserProp) => {
+const Index: FC<any> = (props: UserProp) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -28,28 +27,25 @@ const Index: React.FC<any> = (props: UserProp) => {
   };
 
   const handleClose = () => {
-    props.signOut && props.signOut();
-    setOpen(false);
+    router.replace('/main');
+    // props.signOut && props.signOut();
+    // setOpen(false);
   };
 
-  const handleLogin = async () => {
-
-  };
-
-  React.useEffect(() => {
-    console.log(props.user);
-    debugger;
-  }, []);
-
-  React.useEffect(() => {
-    if (!props.isLogin()) {
-      console.log(props.user?.getBasicProfile());
-
-      debugger;
-      const pathName = router.pathname;
-      router.replace(`/login?returnUrl=${pathName}`);
-    }
-  }, [props]);
+  // useEffect(() => {
+  //   console.log(props.user);
+  //   debugger;
+  // }, []);
+  //
+  // useEffect(() => {
+  //   if (!props.isLogin()) {
+  //     console.log(props.user?.getBasicProfile());
+  //
+  //     debugger;
+  //     const pathName = router.pathname;
+  //     router.replace(`/login?returnUrl=${pathName}`);
+  //   }
+  // }, [props]);
 
   return (
     <>
